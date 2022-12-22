@@ -1,0 +1,23 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	&__label-input {
+		display: inline-block;
+		margin-bottom: 5px;
+		font-size: 17px;
+		font-weight: 600;
+		color: $defaultBackFon;
+	}
+	&__input {
+		width: 100%;
+		padding: 7px 5px 7px 0px;
+		border: 1px solid black;
+		font-size: 17px;
+		border-radius: 3px !important;
+	}
+	&__input-error {
+		color: red;
+		font-weight: 600;
+		margin-top: 5px;
+	}
+}

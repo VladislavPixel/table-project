@@ -1,54 +1,48 @@
-function validator(dataObject, configObject) {
-	const errorsList = {}
-	const validate = (method, value, objectWithConfigForMethod) => {
-		let statusValidate
+import type {
+	IValidator,
+	IConfigForValidator
+} from "../interfaces";
+
+class Validator implements IValidator {
+	#errorList: Record<string, string>;
+
+	constructor() {
+		this.#errorList = {};
+	}
+
+	worker(method: string, dataValue: string, objectValidate: Record<string, string>): string | undefined {
+		let statusValidate: boolean | undefined;
+
 		switch (method) {
 			case "isRequired":
-				if (typeof value === "boolean") {
-					statusValidate = !value === true
-				} else {
-					statusValidate = value.trim() === ""
-				}
-			break
-			case "range":
-				const valueNumber = Number(value)
-				statusValidate = !(valueNumber >= objectWithConfigForMethod.min && valueNumber <= objectWithConfigForMethod.max)
-			break
-			case "isEmail":
-				statusValidate = !(/^\S+@\S+\.\S+$/g.test(value))
-			break
-			case "num":
-				statusValidate = !(/\d+/g.test(value))
-			break
-			case "isPhone":
-				statusValidate = !(/^8\d+$/g.test(value))
-			break
-			case "specificAmountElements":
-				statusValidate = value.trim().length > objectWithConfigForMethod.score || value.trim().length < objectWithConfigForMethod.score
-			break
-			case "upperEl":
-				statusValidate = !(/[A-Z]+/g.test(value))
-			break
-			case "specialCharacter":
-				statusValidate = !(/(?=.*[!@#$%&^*?])/g.test(value))
-			break
-			case "minElements":
-				statusValidate = value.trim().length < objectWithConfigForMethod.value
-			break
+				statusValidate = dataValue.trim() === "";
+				break;
 			default:
-				break
+				break;
 		}
-		if (statusValidate) return objectWithConfigForMethod.message
-	}
 
-	for (const key in dataObject) {
-		for (const validateMethod in configObject[key]) {
-			const error = validate(validateMethod, dataObject[key], configObject[key][validateMethod])
-			if (error && !errorsList[key]) errorsList[key] = error
+		if (statusValidate) {
+			return objectValidate.message;
 		}
-	}
+	};
 
-	return errorsList
-}
+	validate(data: Record<string, string>, config: IConfigForValidator): Record<string, string> {
+		this.#errorList = {};
 
-export default validator
+		for (const key in data) {
+			for (const validateMethod in config[key]) {
+				const error: string | undefined = this.worker(validateMethod, data[key], config[key][validateMethod]);
+
+				if (error && !this.#errorList[key]) {
+					this.#errorList[key] = error;
+				}
+			}
+		}
+
+		return this.#errorList;
+	};
+};
+
+const validator: Validator = new Validator();
+
+export { validator };

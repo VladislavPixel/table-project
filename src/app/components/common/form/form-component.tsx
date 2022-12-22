@@ -1,74 +1,88 @@
-import validator from "../../../utils/validator"
+import React, { FormEvent, useState, useEffect } from "react";
 
-const FormComponent = ({ children, onSubmit, defaultData, config, classesParent }) => {
-	// STATE
-	const [data, setData] = useState(defaultData || {})
-	const [errors, setErrors] = useState({})
-	// AUXILIARY
-	const validation = useCallback((dataTarget) => {// Направляет конфиг и данные формы в валидатор, он проверяет и отдает ошибки, если они есть
-		const errorSet = validator(dataTarget, config)
-		setErrors(errorSet)
-		return Object.keys(errorSet).length === 0 // Доп.проверка для handlerSubmit
-	}, [config, setErrors])
-	const isDisabledBtn = !(Object.keys(errors).length === 0)
-	const newChildren = React.Children.map(children, child => {
-		if (child !== null) {
-			let newConfigChild // т.к. мы используем универсальную форму нам нужно дополнить детей некоторыми props
-			if (child.props["data-trigger"]) { // Логика для форм, в которых FormComponent принимает блок, который уже раздает props на несколько полей
-				newConfigChild = {
-					...child.props,
-					value: data,
-					error: errors,
-					onChange: handlerChange
-				}
-			} else if (typeof child.type === "object") { // Логика обычных форм, в которых FormComponent принимает сразу поля
-				newConfigChild = {
-					...child.props,
-					value: data[child.props.name],
-					error: (errors[child.props.name] !== undefined ? errors[child.props.name] : child.props.error),
-					onChange: handlerChange
-				}
-			}
-			if (child.type === "button") {
-				if (child.props.type === undefined || child.props.type === "submit") {
+import type {
+	IConfigForValidator,
+	IPropsHandlerChange
+} from "../../../interfaces";
+
+import { validator } from "../../../utils/validator";
+
+interface FormComponentProps {
+	classesParent: string;
+	children: React.ReactNode;
+	config: IConfigForValidator;
+	onSubmit(dataValue: any): void;
+	defaultData: Record<string, string>;
+	titleForForm: string;
+};
+
+const FormComponent: React.FC<FormComponentProps> = ({ defaultData, onSubmit, config, children, classesParent, titleForForm }) => {
+	const [data, setData] = useState<Record<string, string>>(defaultData || {});
+
+	const [errors, setErrors] = useState<Record<string, string>>({});
+
+	const validation = (dataTarget: Record<string, string>): boolean => {
+		const errorSet = validator.validate(dataTarget, config);
+
+		setErrors(errorSet);
+
+		return Object.keys(errorSet).length === 0;
+	};
+
+	const isDisabledBtn: boolean = !(Object.keys(errors).length === 0);
+
+	const newChildren: React.ReactNode = React.Children.map(children, child => {
+		if (typeof child !== "undefined" && child !== null) {
+			let newConfigChild: undefined | Record<string, any>;
+
+			if (React.isValidElement(child)) {
+				if (typeof child.type === "function") {
 					newConfigChild = {
 						...child.props,
-						className: child.props.className + (isDisabledBtn ? " no-active" : ""),
-						disabled: isDisabledBtn
-					}
+						value: data[child.props.name],
+						onChange: handlerChange,
+						error: (errors[child.props.name] !== undefined ? errors[child.props.name] : child.props.error)
+					};
 				}
-				if (child.props.type === "button") {
-					let disabledConfig = child.props["data-status"] ? {} : { disabled: isDisabledBtn }
-					newConfigChild = {
-						...child.props,
-						className: child.props.className + (isDisabledBtn && !child.props["data-status"] ? " no-active" : ""),
-						...disabledConfig
-					}
-				}
-			}
 
-			return React.cloneElement(child, newConfigChild)
+				if (child.type === "button") {
+					if (child.props.type === undefined || child.props.type === "submit") {
+						newConfigChild = {
+							...child.props,
+							className: String(child.props.className) + (isDisabledBtn ? " no-active" : ""),
+							disabled: isDisabledBtn
+						};
+					}
+				}
+
+				return React.cloneElement(child, newConfigChild);
+			}
 		}
-	})
-	// HANDLERS
-	function handlerSubmit(event) {
-		event.preventDefault()
-		const isValidFormData = validation()
-		if (!isValidFormData) return
-		onSubmit(data)
-	}
-	function handlerChange(newValue) {
-		setData( prevState => ({ ...prevState, [newValue.name]: newValue.value }) )
-	}
+	});
 
-	useEffect(() => { // При каждом изменении данных формы, когда мы вводим что-то в input, запускается валидация полей
-		validation(data)
-	}, [data])
+	function handlerSubmit(event: FormEvent): void {
+		event.preventDefault();
+
+		const isValidFormData: boolean = validation(data);
+
+		if (!isValidFormData) return;
+
+		onSubmit(data);
+	};
+
+	function handlerChange(newValue: IPropsHandlerChange): void {
+		setData(prevState => ({ ...prevState, [newValue.name]: newValue.value }));
+	};
+
+	useEffect(() => {
+		validation(data);
+	}, [data]);
+
 	return (
-		<form className={`${classesParent}__form form`} onSubmit={handlerSubmit}>
+		<form title={titleForForm} className={`${classesParent}__form form`} onSubmit={handlerSubmit}>
 			{newChildren}
 		</form>
 	);
 };
 
-export default FormComponent;
+export { FormComponent };

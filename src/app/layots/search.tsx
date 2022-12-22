@@ -1,5 +1,5 @@
 import type React from "react";
-import SearchPage from "../pages/search-page";
+import { SearchPage } from "../components/pages/search-page";
 
 const Search: React.FC = () => {
 	return (
@@ -7,4 +7,4 @@ const Search: React.FC = () => {
 	);
 };
 
-export default Search;
+export { Search };
