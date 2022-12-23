@@ -1,9 +1,12 @@
 import type React from "react";
 import { TableBySurnamePage } from "../components/pages/table-by-surname-page";
+import { DataUsersGlobalLoader } from "../components/HOC/data-users-global-loader";
 
 const TableBySurname: React.FC = () => {
 	return (
-		<TableBySurnamePage />
+		<DataUsersGlobalLoader>
+			<TableBySurnamePage />
+		</DataUsersGlobalLoader>
 	);
 };
 

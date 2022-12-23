@@ -90,10 +90,16 @@ const dataUsers: IUserTable[] = [
 	}
 ];
 
-function getDataUsersBySurname(): Promise<unknown> {
-	return new Promise((resolve, reject) => {
+async function getDataUsersBySurname(surname: string): Promise<IUserTable[]> {
+	/* eslint-disable */
+	return new Promise((resolve) => {
+		const arrayFilterUsers = dataUsers.filter((user) => user["ФИО"] === surname);
 
+		setTimeout(() => {
+			resolve(arrayFilterUsers);
+		}, 500);
 	});
+	/* eslint-enable */
 };
 
 export { getDataUsersBySurname };

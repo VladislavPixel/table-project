@@ -45,3 +45,10 @@ export interface IUserTable {
 	"установлен ДСТ (1-да/0-нет)": string;
 	"№ кабинета": string;
 };
+
+export interface IInitialStateUsers {
+	isLoadingUsers: boolean;
+	errorUsers: null | string;
+	dataUsers: IUserTable[];
+	currentSearch: string;
+};

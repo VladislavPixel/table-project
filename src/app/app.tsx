@@ -17,7 +17,7 @@ const App: React.FC = () => {
 			<main className="wrapper__content block-content">
 				<Routes>
 					<Route path="/" element={<Search />} />
-					<Route path="/table-surname" element={<TableBySurname />} />
+					<Route path="/table-surname/:surName" element={<TableBySurname />} />
 				</Routes>
 			</main>
 			<Footer />

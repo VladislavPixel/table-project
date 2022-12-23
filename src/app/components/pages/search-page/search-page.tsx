@@ -1,14 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { FormComponent, TextField } from "../../common/form";
+import {
+	FormComponent,
+	TextField
+} from "../../common/form";
 
 const SearchPage: React.FC = () => {
+	const navigate = useNavigate();
+
 	const [data] = useState<Record<string, string>>({
 		surName: ""
 	});
 
 	function handlerSubmitForm(newData: Record<string, unknown>): void {
-		console.log("Отправка данных: ", newData);
+		if (newData.surName === undefined || typeof newData.surName !== "string") {
+			throw new Error("Данные возвращаемые из формы должны иметь ключ surName, с каким то строковым значением.");
+		}
+
+		navigate(`/table-surname/${newData.surName}`);
 	};
 
 	const validatorConfig = {

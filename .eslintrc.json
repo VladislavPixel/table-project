@@ -30,6 +30,7 @@
 		"no-new-func": 0,
 		"no-tabs": 0,
 		"no-useless-escape": 0,
+		"@typescript-eslint/no-floating-promises": 0,
 		"@typescript-eslint/consistent-indexed-object-style": 0,
 		"@typescript-eslint/lines-between-class-members": [
 			"error",

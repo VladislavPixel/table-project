@@ -24,6 +24,7 @@ $goldColor: #ffd23e;
 	position: relative;
 	&__content {
 		flex: 1 1 auto;
+		position: relative;
 	}
 }
 //===============================================================================================================
@@ -40,4 +41,7 @@ $goldColor: #ffd23e;
 @import "footer";
 @import "container-search";
 @import "form";
+@import "spinner";
+@import "surname-table";
+@import "message-lite";
 //===============================================================================================================

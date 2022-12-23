@@ -1,0 +1,34 @@
+.surname-table {
+	height: 100%;
+	padding: 10px;
+	&__block {
+		max-height: 100%;
+		overflow: auto;
+	}
+	&__row-head {
+		width: 100%;
+		display: flex;
+		
+	}
+	&__column-head {
+		padding: 7px;
+		flex: 0 0 150px;
+		width: 100px;
+		border-top: 2px solid $defaultBackFon;
+		border-bottom: 2px solid $defaultBackFon;
+		border-right: 2px solid $defaultBackFon;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		&:first-child {
+			border-left: 2px solid $defaultBackFon;
+		}
+	}
+	&__title {
+		font-size: 22px;
+		margin-bottom: 20px;
+		text-align: center;
+		font-weight: 700;
+	}
+}
