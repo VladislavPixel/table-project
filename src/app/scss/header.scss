@@ -1,6 +1,7 @@
 .header {
 	padding: 15px 0px;
 	background-color: $defaultBackFon;
+	box-shadow: 0 0 3px 0px #000;
 	&__container {
 		display: flex;
 		align-items: center;

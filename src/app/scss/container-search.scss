@@ -17,6 +17,7 @@
 		transition: background-color 0.3s ease 0s;
 		border: 2px solid $defaultBackFon;
 		align-self: center;
+		box-shadow: 0 0 3px 0px #000;
 		&:hover {
 			background-color: #21415f;
 		}

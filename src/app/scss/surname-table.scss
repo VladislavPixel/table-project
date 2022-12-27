@@ -1,14 +1,14 @@
 .surname-table {
 	height: 100%;
 	padding: 10px;
+	overflow: auto;
 	&__block {
-		max-height: 100%;
-		overflow: auto;
+		height: 100%;
 	}
 	&__row-head {
 		width: 100%;
 		display: flex;
-		
+		margin-bottom: 10px;
 	}
 	&__column-head {
 		padding: 7px;
@@ -21,8 +21,18 @@
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+		flex-direction: column;
 		&:first-child {
 			border-left: 2px solid $defaultBackFon;
+		}
+		&_last {
+			font-weight: 700;
+			color: green;
+			img {
+				width: 20px;
+				height: 20px;
+				margin-bottom: 7px;
+			}
 		}
 	}
 	&__title {
@@ -30,5 +40,67 @@
 		margin-bottom: 20px;
 		text-align: center;
 		font-weight: 700;
+		color: green;
+	}
+	&__row-data {
+		display: flex;
+	}
+	&__column-data {
+		padding: 7px;
+		flex: 0 0 150px;
+		width: 100px;
+		max-height: 100px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		position: relative;
+		border-bottom: 1px solid $defaultBackFon;
+		border-right: 1px solid $defaultBackFon;
+		&:first-child {
+			border-left: 1px solid $defaultBackFon;
+		}
+	}
+	&__text-data {
+		img {
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+			margin-left: 5px;
+		}
+	}
+	&__mini-modal {
+		position: absolute;
+		top: -20%;
+		left: 0px;
+		transform: translateX(-35%);
+		z-index: 50;
+		background: #1d4061;
+		width: 500px;
+		line-height: 120%;
+		padding: 20px 10px 10px 10px;
+		color: aliceblue;
+		border-radius: 7px;
+		box-shadow: 0 0 3px 0px #000;
+	}
+	&__img-close {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 15px;
+		height: 15px;
+		z-index: 10;
+		cursor: pointer;
+	}
+	&__btn-download {
+		padding: 7px;
+		background-color: green;
+		box-shadow: 0 0 3px 0px #000;
+		color: aliceblue;
+		transition: background-color 0.3s ease 0s, transform 0.3s ease 0s;
+		&:hover {
+			background-color: rgb(0, 85, 0);
+			transform: scale(0.9);
+		}
 	}
 }

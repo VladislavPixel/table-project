@@ -44,6 +44,7 @@ export interface IUserTable {
 	"кабинет": string;
 	"установлен ДСТ (1-да/0-нет)": string;
 	"№ кабинета": string;
+	[key: PropertyKey]: string;
 };
 
 export interface IInitialStateUsers {
