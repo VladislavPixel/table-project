@@ -9,18 +9,8 @@
 		width: 400px;
 	}
 	&__btn-sub {
-		background-color: $defaultBackFon;
-		font-weight: 600;
-		color: aliceblue;
-		padding: 10px;
 		margin-top: 25px;
-		transition: background-color 0.3s ease 0s;
-		border: 2px solid $defaultBackFon;
 		align-self: center;
-		box-shadow: 0 0 3px 0px #000;
-		&:hover {
-			background-color: #21415f;
-		}
 		&.no-active {
 			opacity: 0.5;
 			pointer-events: none;

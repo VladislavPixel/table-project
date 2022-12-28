@@ -8,7 +8,9 @@ const initialState: IInitialStateUsers = {
 	isLoadingUsers: true,
 	dataUsers: [],
 	errorUsers: null,
-	currentSearch: ""
+	currentSearch: "",
+	targetIdUser: null,
+	targetDataUser: null
 };
 
 const usersSlice = createSlice({
@@ -19,6 +21,9 @@ const usersSlice = createSlice({
 			state.errorUsers = null;
 			state.dataUsers = [];
 			state.isLoadingUsers = true;
+			state.currentSearch = "";
+			state.targetIdUser = null;
+			state.targetDataUser = null;
 		},
 		usersReceived(state, action: PayloadAction<{ data: IUserTable[]; searchTxt: string }>) {
 			state.dataUsers = action.payload.data;
@@ -28,6 +33,10 @@ const usersSlice = createSlice({
 		usersRequestField(state, action: PayloadAction<string>) {
 			state.errorUsers = action.payload;
 			state.isLoadingUsers = false;
+		},
+		targetUserReceived(state, action: PayloadAction<{ id: string; data: IUserTable }>) {
+			state.targetIdUser = action.payload.id;
+			state.targetDataUser = action.payload.data;
 		}
 	}
 });
@@ -37,7 +46,8 @@ const { actions, reducer: usersReducer } = usersSlice;
 const {
 	usersRequested,
 	usersReceived,
-	usersRequestField
+	usersRequestField,
+	targetUserReceived
 } = actions;
 
 // ACTIONS
@@ -57,28 +67,50 @@ export function fetchDataUsers(surnameText: string) {
 	};
 };
 
+export function setDataUser(id: string, data: IUserTable) {
+	return async(dispatch: AppDispatch, getStore: () => StateCombinate): Promise<void> => {
+		const oldId = getStore().users.targetIdUser;
+
+		if (oldId !== id) {
+			dispatch(targetUserReceived({ id, data }));
+		}
+	};
+};
+
 // SELECTORS
 export const getDataUsers = () => {
-	return (state: StateCombinate) => {
+	return (state: StateCombinate): IUserTable[] => {
 		return state.users.dataUsers;
 	};
 };
 
 export const getStatusLoaderForUsers = () => {
-	return (state: StateCombinate) => {
+	return (state: StateCombinate): boolean => {
 		return state.users.isLoadingUsers;
 	};
 };
 
 export const getErrorForUsers = () => {
-	return (state: StateCombinate) => {
+	return (state: StateCombinate): string | null => {
 		return state.users.errorUsers;
 	};
 };
 
 export const getCurrentSearchForUsers = () => {
-	return (state: StateCombinate) => {
+	return (state: StateCombinate): string => {
 		return state.users.currentSearch;
+	};
+};
+
+export const getIdForTargetUser = () => {
+	return (state: StateCombinate): string | null => {
+		return state.users.targetIdUser;
+	};
+};
+
+export const getDataForTargetUser = () => {
+	return (state: StateCombinate): IUserTable | null => {
+		return state.users.targetDataUser;
 	};
 };
 

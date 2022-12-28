@@ -52,4 +52,10 @@ export interface IInitialStateUsers {
 	errorUsers: null | string;
 	dataUsers: IUserTable[];
 	currentSearch: string;
+	targetIdUser: null | string;
+	targetDataUser: null | IUserTable;
+};
+
+export interface IInitialStateModal {
+	isModal: boolean;
 };

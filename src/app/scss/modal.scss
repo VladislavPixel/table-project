@@ -1,0 +1,58 @@
+.block-modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.505);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 600;
+	&__container {
+		flex: 0 1 50%;
+		background-color: #1d4061;
+		padding: 20px;
+		box-shadow: 0 0 3px 0px #000;
+		border: 1px solid aliceblue;
+		border-radius: 6px !important;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	&__close-btn {
+		align-self: flex-end;
+		position: relative;
+		flex: 0 0 17px;
+		width: 17px;
+		height: 17px;
+		margin-bottom: 10px;
+	}
+	&__close-icon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	&__title {
+		color: aliceblue;
+		font-weight: 600;
+		font-size: 20px;
+		margin-bottom: 15px;
+		line-height: 120%;
+	}
+	&__text {
+		color: rgb(165, 165, 165);
+		font-size: 16px;
+		line-height: 120%;
+		margin-bottom: 10px;
+	}
+	&__user-name {
+		font-size: 17px;
+		font-weight: 600;
+		color: rgb(0, 169, 0);
+	}
+}

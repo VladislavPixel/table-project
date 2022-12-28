@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import Dots from "../../images/icons/dots.svg";
 import Close from "../../images/icons/close.svg";
+import type { IUserTable } from "../../interfaces";
+import { setDataUser } from "../../store/users";
+import { setStateModal } from "../../store/modal";
+import { useAppDispatch } from "../../hooks/hooks-redux";
 
 interface ColumnDataTableProps {
 	index: number;
 	value: string;
 	maxIndex: number;
+	data: IUserTable;
 };
 
-const ColumnDataTable: React.FC<ColumnDataTableProps> = ({ value, index, maxIndex }) => {
+const ColumnDataTable: React.FC<ColumnDataTableProps> = ({ value, index, maxIndex, data }) => {
+	const dispatch = useAppDispatch();
+
 	const [isModal, setModal] = useState(false);
 
 	function getContent(valueStr: string): string | React.ReactNode {
@@ -24,10 +31,16 @@ const ColumnDataTable: React.FC<ColumnDataTableProps> = ({ value, index, maxInde
 		);
 	}
 
+	function handlerClickDownLoad(valueId: string): void {
+		dispatch(setDataUser(valueId, data));
+
+		dispatch(setStateModal());
+	}
+
 	return (
 		<div className="surname-table__column-data">
 			{index === maxIndex - 1
-				? <button title="Нажмите, чтобы загрузить данные для этого человека." className="surname-table__btn-download" type="button">Загрузить</button>
+				? <button onClick={() => handlerClickDownLoad(data.id)} title="Нажмите, чтобы загрузить данные для этого человека." className="surname-table__btn-download green-btn" type="button">Загрузить</button>
 				: <p className="surname-table__text-data">{getContent(value)}</p>
 			}
 			{isModal &&

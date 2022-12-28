@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 
 import {
 	getStatusLoaderForUsers,
-	fetchDataUsers
+	fetchDataUsers,
+	getCurrentSearchForUsers
 } from "../../store/users";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks-redux";
@@ -16,12 +17,18 @@ interface DataUsersGlobalLoaderProps {
 const DataUsersGlobalLoader: React.FC<DataUsersGlobalLoaderProps> = ({ children }) => {
 	const statusLoader = useAppSelector(getStatusLoaderForUsers());
 
+	const currentSearch = useAppSelector(getCurrentSearchForUsers());
+
 	const dispatch = useAppDispatch();
 
 	const params = useParams();
 
 	useEffect(() => {
 		if (statusLoader && params?.surName) {
+			dispatch(fetchDataUsers(params.surName));
+		}
+
+		if (!statusLoader && params?.surName && params.surName !== currentSearch) {
 			dispatch(fetchDataUsers(params.surName));
 		}
 	}, []);

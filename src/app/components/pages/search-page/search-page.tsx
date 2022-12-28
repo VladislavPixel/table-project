@@ -30,7 +30,7 @@ const SearchPage: React.FC = () => {
 			<div className="container-search__block">
 				<FormComponent titleForForm="Форма, для поиска таблицы по фамилии." onSubmit={handlerSubmitForm} defaultData={data} config={validatorConfig} classesParent="container-search">
 					<TextField name="surName" label="Фамилия:" placeholder="начните поиск по фамилии" type="text" />
-					<button title="Нажмите, чтобы сделать выборку по введенной фамилии." className="container-search__btn-sub" type="submit">Сделать выборку</button>
+					<button title="Нажмите, чтобы сделать выборку по введенной фамилии." className="container-search__btn-sub blue-btn" type="submit">Сделать выборку</button>
 				</FormComponent>
 			</div>
 		</div>

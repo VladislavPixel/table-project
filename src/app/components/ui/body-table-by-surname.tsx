@@ -18,7 +18,7 @@ const BodyTableBySurname: React.FC = () => {
 					<div key={index} className="surname-table__row-data">
 						{arrayForColumn.map((keyValue: string, index: number) => {
 							return (
-								<ColumnDataTable key={index} maxIndex={arrayForColumn.length} index={index} value={dataValue[keyValue]} />
+								<ColumnDataTable key={index} maxIndex={arrayForColumn.length} index={index} value={dataValue[keyValue]} data={dataValue} />
 							);
 						})}
 					</div>

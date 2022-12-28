@@ -35,6 +35,30 @@ $goldColor: #ffd23e;
 	margin: 0 auto;
 	padding: 0px 10px;
 }
+.blue-btn {
+	background-color: $defaultBackFon;
+	font-weight: 600;
+	color: aliceblue;
+	padding: 10px;
+	transition: background-color 0.3s ease 0s;
+	border: 2px solid $defaultBackFon;
+	box-shadow: 0 0 3px 0px #000;
+	&:hover {
+		background-color: #21415f;
+	}
+}
+.green-btn {
+	padding: 7px;
+	background-color: green;
+	box-shadow: 0 0 3px 0px #000;
+	color: aliceblue;
+	transition: background-color 0.3s ease 0s, transform 0.3s ease 0s;
+	&:hover {
+		background-color: rgb(0, 85, 0);
+		transform: scale(0.9);
+	}
+}
+// ==============================================================================================================
 
 // Imports ФАЙЛОВ ДРУГИХ СУЩНОСТЕЙ ==============================================================================
 @import "header";
@@ -44,4 +68,6 @@ $goldColor: #ffd23e;
 @import "spinner";
 @import "surname-table";
 @import "message-lite";
+@import "not-found";
+@import "modal";
 //===============================================================================================================

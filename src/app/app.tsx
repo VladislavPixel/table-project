@@ -1,8 +1,12 @@
-import type React from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "./components/common/header";
 import { Search } from "./layots/search";
 import { Footer } from "./components/common/footer";
+import { ModalComponent } from "./components/common/modal-component";
+import { NotFound } from "./layots/not-found";
 import { TableBySurname } from "./layots/table-by-surname";
+import { useAppSelector } from "./hooks/hooks-redux";
+import { getStateModal } from "./store/modal";
 import "./scss/style.scss";
 
 import {
@@ -11,16 +15,43 @@ import {
 } from "react-router-dom";
 
 const App: React.FC = () => {
+	const isModal: boolean = useAppSelector(getStateModal());
+
+	const [heightHeader, setHeightHeader] = useState<number>(0);
+
+	const [heightFooter, setHeightFooter] = useState<number>(0);
+
+	const [styleConfigContent, setStyleConfigContent] = useState<{ height: string }>({
+		height: "100vh"
+	});
+
+	const handlerUpdateHeight = (type: "header" | "footer", value: number): void => {
+		if (type === "header") {
+			setHeightHeader(value);
+		}
+
+		if (type === "footer") {
+			setHeightFooter(value);
+		}
+	};
+
+	useEffect(() => {
+		setStyleConfigContent({
+			height: `calc(100vh - ${heightHeader}px - ${heightFooter}px)`
+		});
+	}, [heightFooter, heightHeader]);
 	return (
 		<div className="wrapper">
-			<Header />
-			<main className="wrapper__content block-content">
+			<Header onUpdateHeight={handlerUpdateHeight} />
+			<main style={styleConfigContent} className="wrapper__content block-content">
 				<Routes>
 					<Route path="/" element={<Search />} />
 					<Route path="/table-surname/:surName" element={<TableBySurname />} />
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</main>
-			<Footer />
+			<Footer onUpdateHeight={handlerUpdateHeight} />
+			{isModal && <ModalComponent classesParent={"wrapper"} />}
 		</div>
 	);
 };

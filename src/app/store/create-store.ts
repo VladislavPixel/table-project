@@ -4,9 +4,11 @@ import {
 } from "@reduxjs/toolkit";
 
 import { usersReducer } from "./users";
+import { modalReducer } from "./modal";
 
 const rootReducer = combineReducers({
-	users: usersReducer
+	users: usersReducer,
+	modal: modalReducer
 });
 
 const resultConfigureStore = configureStore({
