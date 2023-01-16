@@ -14,7 +14,7 @@
 	"rules": {
 		"no-var": "error",
 		"semi": [2, "always"],
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"indent": ["error", "tab", { "SwitchCase": 1, "ignoredNodes": ["ConditionalExpression"] }],
 		"quotes": ["error", "double", { "avoidEscape": true, "allowTemplateLiterals": true }],
 		"quote-props": ["error", "consistent"],
 		"space-before-function-paren": [
@@ -51,7 +51,7 @@
 				"multilineDetection": "brackets"
 			}
 		],
-		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1 }],
+		"@typescript-eslint/indent": ["error", "tab", { "SwitchCase": 1, "ignoredNodes": ["ConditionalExpression"] }],
 		"@typescript-eslint/semi": [2, "always"],
 		"@typescript-eslint/quotes": [
 			"error",

@@ -54,5 +54,23 @@
 		font-size: 17px;
 		font-weight: 600;
 		color: rgb(0, 169, 0);
+		margin-bottom: 15px;
+	}
+	&__btn-sub {
+		margin-top: 35px;
+		&.no-active {
+			opacity: 0.3;
+			pointer-events: none;
+		}
+	}
+	&__form {
+		width: 400px;
+		.form__label-input {
+			color: aliceblue;
+			font-size: 14px;
+		}
+		.form__input {
+			color: aliceblue;
+		}
 	}
 }

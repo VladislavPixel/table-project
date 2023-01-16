@@ -19,13 +19,13 @@ const ColumnDataTable: React.FC<ColumnDataTableProps> = ({ value, index, maxInde
 	const [isModal, setModal] = useState(false);
 
 	function getContent(valueStr: string): string | React.ReactNode {
-		if (valueStr.length <= 60) {
+		if (valueStr.length <= 50) {
 			return valueStr;
 		}
 
 		return (
 			<span>
-				{valueStr.slice(0, 60)}
+				{valueStr.slice(0, 50)}
 				<img onClick={() => setModal(true)} title="Нажмите, чтобы раскрыть модальное окно с полным текстом." src={Dots} alt="Иконка трех точек." />
 			</span>
 		);

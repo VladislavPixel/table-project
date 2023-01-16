@@ -6,7 +6,7 @@ interface TextFieldProps {
 	label: string;
 	placeholder: string;
 	type: string;
-	value?: unknown;
+	value?: string | Record<string, any>;
 	error?: string;
 	onChange?(dataTarget: IPropsHandlerChange): void;
 };
@@ -14,8 +14,27 @@ interface TextFieldProps {
 const TextField: React.FC<TextFieldProps> = ({ name, label, placeholder, type, value, error, onChange }) => {
 	const [isShowIcon, setShowIcon] = useState(false);
 
+	const typeTextField = type === "file"
+		? type
+		: isShowIcon
+		? "text"
+		: !isShowIcon && type !== "text"
+		? "password"
+		: "text";
+
 	const handlerChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
-		if (onChange !== undefined) {
+		if (onChange === undefined) {
+			return;
+		}
+
+		if (typeTextField === "file") {
+			const result = {
+				link: target.value,
+				dataFiles: target.files === null ? "" : target.files
+			};
+
+			onChange({ name, value: result });
+		} else {
 			onChange({ name, value: target.value });
 		}
 	};
@@ -32,13 +51,23 @@ const TextField: React.FC<TextFieldProps> = ({ name, label, placeholder, type, v
 		}
 	};
 
-	const typeTextField = isShowIcon ? "text" : !isShowIcon && type !== "text" ? "password" : "text";
+	let valueForInput;
+
+	if (type === "file") {
+		if (value !== null && typeof value === "object" && "link" in value) {
+			valueForInput = value.link;
+		} else {
+			valueForInput = "";
+		}
+	} else {
+		valueForInput = String(value);
+	}
 
 	return (
 		<div className="form__input-block">
 			<label htmlFor={name} className="form__label-input">{label}</label>
 			<div className={"form__input-container" + (type === "password" ? " active" : "")}>
-				<input onChange={handlerChange} className="form__input" type={typeTextField} value={String(value)} name={name} id={name} placeholder={placeholder} />
+				<input accept=".pdf" multiple onChange={handlerChange} className="form__input" type={typeTextField} value={valueForInput} name={name} id={name} placeholder={placeholder} />
 				{type === "password" && getIconForInput()}
 			</div>
 			{error && <p className="form__input-error">{error}</p>}

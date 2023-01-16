@@ -7,21 +7,22 @@ import type {
 
 import { validator } from "../../../utils/validator";
 
-interface FormComponentProps {
+interface FormComponentAdditionalProps {
 	classesParent: string;
 	children: React.ReactNode;
 	config: IConfigForValidator;
-	onSubmit(dataValue: any): void;
-	defaultData: Record<string, string>;
 	titleForForm: string;
+	onSubmit(dataValue: any): void;
 };
 
-const FormComponent: React.FC<FormComponentProps> = ({ defaultData, onSubmit, config, children, classesParent, titleForForm }) => {
-	const [data, setData] = useState<Record<string, string>>(defaultData || {});
+type TypePropsForm<T = unknown> = { defaultData: Record<string, string | Record<string, T>> } & FormComponentAdditionalProps;
+
+function FormComponent<T>({ defaultData, onSubmit, config, children, classesParent, titleForForm }: TypePropsForm<T>): any {
+	const [data, setData] = useState<Record<string, string | Record<string, T | {}>>>(defaultData || {});
 
 	const [errors, setErrors] = useState<Record<string, string>>({});
 
-	const validation = (dataTarget: Record<string, string>): boolean => {
+	const validation = (dataTarget: Record<string, string | Record<string, T | {}>>): boolean => {
 		const errorSet = validator.validate(dataTarget, config);
 
 		setErrors(errorSet);

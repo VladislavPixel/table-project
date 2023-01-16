@@ -10,12 +10,22 @@ class Validator implements IValidator {
 		this.#errorList = {};
 	}
 
-	worker(method: string, dataValue: string, objectValidate: Record<string, string>): string | undefined {
+	worker<T>(method: string, dataValue: string | Record<string, T>, objectValidate: Record<string, string>): string | undefined {
 		let statusValidate: boolean | undefined;
 
 		switch (method) {
 			case "isRequired":
-				statusValidate = dataValue.trim() === "";
+				if (objectValidate?.type === "file" && typeof dataValue === "object") {
+					if (dataValue.link === "") {
+						statusValidate = true;
+					} else {
+						statusValidate = false;
+					}
+				}
+
+				if (typeof dataValue === "string") {
+					statusValidate = dataValue.trim() === "";
+				}
 				break;
 			default:
 				break;
@@ -26,7 +36,7 @@ class Validator implements IValidator {
 		}
 	};
 
-	validate(data: Record<string, string>, config: IConfigForValidator): Record<string, string> {
+	validate<T>(data: Record<string, string | Record<string, T>>, config: IConfigForValidator): Record<string, string> {
 		this.#errorList = {};
 
 		for (const key in data) {
