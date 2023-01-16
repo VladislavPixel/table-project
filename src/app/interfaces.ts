@@ -47,6 +47,14 @@ export interface IUserTable {
 	[key: PropertyKey]: string;
 };
 
+export interface IDataAllPage {
+	id: string;
+	name: string;
+	engineer_name: string;
+	path_file: string;
+	createdAt: string;
+};
+
 export interface IInitialStateUsers {
 	isLoadingUsers: boolean;
 	errorUsers: null | string;
