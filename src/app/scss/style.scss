@@ -30,11 +30,28 @@ $goldColor: #ffd23e;
 //===============================================================================================================
 
 // ОБЩАЯ НАСТРАИВАЕМАЯ СТИЛИСТИКА ===============================================================================
+.block-content {
+	padding: 15px 10px;
+}
+
+@keyframes showButton{
+	0%{
+		transform: scale(1);
+	}
+	50%{
+		transform: scale(0.8);
+	}
+	100%{
+		transform: scale(1);
+	}
+}
+
 ._container {
 	max-width: 1320px;
 	margin: 0 auto;
 	padding: 0px 10px;
 }
+
 .blue-btn {
 	background-color: $defaultBackFon;
 	font-weight: 600;
@@ -47,6 +64,7 @@ $goldColor: #ffd23e;
 		background-color: #21415f;
 	}
 }
+
 .green-btn {
 	padding: 7px;
 	background-color: green;
@@ -70,4 +88,5 @@ $goldColor: #ffd23e;
 @import "message-lite";
 @import "not-found";
 @import "modal";
+@import "additional-table";
 //===============================================================================================================

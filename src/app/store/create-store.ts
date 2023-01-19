@@ -5,10 +5,12 @@ import {
 
 import { usersReducer } from "./users";
 import { modalReducer } from "./modal";
+import { additionalTableReducer } from "./table-additional";
 
 const rootReducer = combineReducers({
 	users: usersReducer,
-	modal: modalReducer
+	modal: modalReducer,
+	additionalTable: additionalTableReducer
 });
 
 const resultConfigureStore = configureStore({

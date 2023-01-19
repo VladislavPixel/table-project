@@ -1,0 +1,44 @@
+.additional-table {
+	padding: 15px;
+	&__title {
+		text-align: center;
+		font-size: 19px;
+		font-weight: 600;
+		color: $defaultBackFon;
+		margin-bottom: 15px;
+	}
+	&__container {
+		display: flex;
+		flex-direction: column;
+	}
+	&__item-row {
+		display: flex;
+		background-color: rgb(232, 232, 232);
+		&.even {
+			background-color: rgb(196, 196, 196);
+		}
+		@media (max-width: 620px) {
+			flex-direction: column;
+		}
+	}
+	&__column-item {
+		padding: 10px;
+		flex: 0 1 20%;
+		text-align: center;
+		font-weight: 600;
+		@media (max-width: 620px) {
+			width: 100%;
+			flex: 0 1 100%;
+		}
+	}
+	&__btn-link {
+		font-weight: 500;
+		animation: showButton 4s ease 0.6s infinite;
+	}
+	&__text {
+		line-height: 140%;
+	}
+	&__wrap-link {
+		margin-bottom: 15px;
+	}
+}

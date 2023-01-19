@@ -57,6 +57,7 @@ export function fetchDataUsers(surnameText: string) {
 
 		try {
 			console.log("Запрос в users Store на получение данных конкретного пользователя.");
+
 			const valueData = await fakeAPI.getDataUsersBySurname(surnameText);
 
 			dispatch(usersReceived({ data: valueData, searchTxt: surnameText }));

@@ -64,6 +64,12 @@ export interface IInitialStateUsers {
 	targetDataUser: null | IUserTable;
 };
 
+export interface IInitialStateDataAdditionalTable {
+	isLoadingAdditionalData: boolean;
+	errorAdditionalTable: null | string;
+	dataForAdditionalTable: IDataAllPage[];
+};
+
 export interface IInitialStateModal {
 	isModal: boolean;
 };

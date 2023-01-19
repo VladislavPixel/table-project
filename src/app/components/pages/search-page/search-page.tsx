@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RedirectToPage } from "../../common/redirect-to-page";
 
 import {
 	FormComponent,
@@ -27,6 +28,7 @@ const SearchPage: React.FC = () => {
 
 	return (
 		<div className="block-content__search-container container-search _container">
+			<RedirectToPage classesParent="container-search" title="Перейти на добавочную страницу" path="/table-additional" />
 			<div className="container-search__block">
 				<FormComponent titleForForm="Форма, для поиска таблицы по фамилии." onSubmit={handlerSubmitForm} defaultData={data} config={validatorConfig} classesParent="container-search">
 					<TextField name="surName" label="Фамилия:" placeholder="начните поиск по фамилии" type="text" />

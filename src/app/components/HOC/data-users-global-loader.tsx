@@ -31,7 +31,7 @@ const DataUsersGlobalLoader: React.FC<DataUsersGlobalLoaderProps> = ({ children 
 		if (!statusLoader && params?.surName && params.surName !== currentSearch) {
 			dispatch(fetchDataUsers(params.surName));
 		}
-	}, []);
+	}, [statusLoader, params?.surName, currentSearch]);
 
 	const ComponentWithLoading = withLoading(children, statusLoader);
 
